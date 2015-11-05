@@ -7,5 +7,6 @@ void getRTC(date * current_date);
 void setRTC(date * set_time);
 void BCDtoBinary(date * date);
 void BinaryToBCD(date * date);
+void play_test();
 
 #endif

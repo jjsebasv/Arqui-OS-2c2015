@@ -13,7 +13,7 @@ STATICLIBS=
 all: $(KERNEL)
 
 $(KERNEL): $(LOADEROBJECT) $(OBJECTS) $(STATICLIBS) $(OBJECTS_ASM)	
-	$(LD) $(LDFLAGS) -T kernel.ld -o $(KERNEL) $(LOADEROBJECT) $(OBJECTS) $(STATICLIBS) idt.o date.o cpuvendor.o
+	$(LD) $(LDFLAGS) -T kernel.ld -o $(KERNEL) $(LOADEROBJECT) $(OBJECTS) $(STATICLIBS) idt.o date.o cpuvendor.o sound.o
 
 %.o: %.c
 	$(GCC) $(GCCFLAGS) -I./include -c $< -o $@	

@@ -5,6 +5,7 @@
 #include "include/api.h"
 #include "include/screensaver.h"
 #include "include/handler.h"
+#include "include/sound.h"
 
 extern unsigned int tickCount;
 extern unsigned int showingScreensaver;
@@ -64,6 +65,10 @@ void syscallHandler(uint64_t code, uint64_t arg1, uint64_t arg2, uint64_t arg3)
 			setScreensaverTime((int) arg1);
 		case SYS_CPUVENDOR:
 			cpuVendor((char *) arg1);
+			break;
+		case SYS_SOUND:
+			play_test();
+			write((unsigned int) arg1, (char *) arg2, (int) arg3);
 			break;
 		default:
 			break;

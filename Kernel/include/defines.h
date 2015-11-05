@@ -79,6 +79,7 @@
 #define SYS_STIME	0x19
 #define SYS_SCREENSAVER	0x20
 #define SYS_CPUVENDOR 0X24
+#define SYS_SOUND 	0x0C80
 
 #define STDIN	0
 #define STDOUT	1
