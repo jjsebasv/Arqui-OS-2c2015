@@ -5,7 +5,7 @@
 #include "include/api.h"
 #include "include/screensaver.h"
 #include "include/handler.h"
-#include "include/sound.h"
+#include "include/pc_speaker.h"
 
 extern unsigned int tickCount;
 extern unsigned int showingScreensaver;
@@ -48,6 +48,7 @@ void keyboardHandler(unsigned char c)
  */
 void syscallHandler(uint64_t code, uint64_t arg1, uint64_t arg2, uint64_t arg3)
 {
+	int f = 1193180/110;
 	switch (code) {
 		case SYS_READ:
 			read((unsigned int) arg1, (char *) arg2, (int) arg3);
@@ -67,8 +68,7 @@ void syscallHandler(uint64_t code, uint64_t arg1, uint64_t arg2, uint64_t arg3)
 			cpuVendor((char *) arg1);
 			break;
 		case SYS_SOUND:
-			play_test();
-			write((unsigned int) arg1, (char *) arg2, (int) arg3);
+			play_speaker((int)arg1);
 			break;
 		default:
 			break;

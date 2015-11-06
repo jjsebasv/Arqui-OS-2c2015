@@ -248,7 +248,7 @@ static void playTest()
 {
 	int i;
 	for(i=1;i<15;i++) {
-		execSysCall(SYS_SOUND, (unsigned int)1, "cc\n", 3);
+		execSysCall(SYS_SOUND, 500, 0, 0);
+		printf("playing sound\n");
 	}
-	printf("playing sound\n");
 }
