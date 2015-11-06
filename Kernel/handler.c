@@ -68,7 +68,8 @@ void syscallHandler(uint64_t code, uint64_t arg1, uint64_t arg2, uint64_t arg3)
 			cpuVendor((char *) arg1);
 			break;
 		case SYS_SOUND:
-			play_speaker((int)arg1);
+			set_speaker_freq((int)arg1);
+			play_speaker((int)arg2);
 			break;
 		default:
 			break;
