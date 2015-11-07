@@ -2,7 +2,7 @@
 #define _pc_speaker_
 
 int set_speaker_freq(int frec);
-int play_speaker(int ms);
+int play_speaker(uint16_t freq);
 void stop_speaker();
 void wait(int ms);
 

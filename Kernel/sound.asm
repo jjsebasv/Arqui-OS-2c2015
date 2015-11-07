@@ -2,32 +2,14 @@ GLOBAL _inb
 GLOBAL _outb
 
 _inb:
-    	push    rbp
-    	mov     rbp, rsp
-	
-    	push    rdx
-	
-    	mov     rdx, [ss:rdi]
-    	xor     rax, rax
-    	in      al, dx
-	
-    	pop     rdx
-	
-    	leave
+	mov rax, 0
+	mov rdx, rdi
+	in al, dx
+	mov rax, rdi
 	ret
 
 _outb:
-	push rbp
-	mov rbp, rsp
-
-	pushaq	
-	
-	mov dx, [rdi] 
-	mov ax, [rsi]
-
-	out dx, al
-	
-	popaq
-	
-	leave
-	ret
+ 	mov rdx, rsi
+ 	mov rax, rdi
+ 	out dx, al
+ 	ret
