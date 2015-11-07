@@ -48,7 +48,6 @@ void keyboardHandler(unsigned char c)
  */
 void syscallHandler(uint64_t code, uint64_t arg1, uint64_t arg2, uint64_t arg3)
 {
-	int f = 1193180/110;
 	switch (code) {
 		case SYS_READ:
 			read((unsigned int) arg1, (char *) arg2, (int) arg3);
@@ -68,8 +67,9 @@ void syscallHandler(uint64_t code, uint64_t arg1, uint64_t arg2, uint64_t arg3)
 			cpuVendor((char *) arg1);
 			break;
 		case SYS_SOUND:
-			set_speaker_freq((int)arg1);
-			play_speaker((int)arg2);
+			play_speaker((int)arg2); // Time - Freq
+			wait((int) arg1);
+			stop_speaker();
 			break;
 		default:
 			break;

@@ -247,8 +247,11 @@ static void getCpuVendor()
 static void playTest()
 {
 	int i;
-	for(i=1;i<15;i++) {
-		execSysCall(SYS_SOUND, 500, 10, 0);
-		printf("playing sound\n");
+	for(i=1;i<30;i++) {
+		execSysCall(SYS_SOUND, 500, 440+10*i, 0); // Time - Freq	
 	}
+	for(i=1;i<15;i++) {
+		execSysCall(SYS_SOUND, 500, 590-10*i, 0); // Time - Freq	
+	}
+	printf("playing sound\n");
 }

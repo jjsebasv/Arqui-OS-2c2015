@@ -132,10 +132,11 @@ void setupIDTentry(int index, uint16_t selector, void (*offset)(), uint8_t acces
 }
 
 void wait(int ms){
-	
-	int end = TICKS_TO_SECONDS + (ms/55);
 	_sti();
-	while (TICKS_TO_SECONDS < end){};
+	int time = ms * 5500;
+	while ( time > 0 ){
+		time --;
+	}
 	_cli();
 
 }
