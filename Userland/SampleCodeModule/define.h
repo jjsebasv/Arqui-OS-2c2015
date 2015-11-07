@@ -9,12 +9,14 @@
 #define SYS_STIME	0x19
 #define SYS_SCREENSAVER	0x20
 #define SYS_CPUVENDOR	0x24
+#define SYS_SOUND	0x0C80
 
 #define COMMAND_LINE_SIZE	77
 #define GET_DATE			0
 #define SET_DATE			1
 #define SET_SCREENSAVER		2
 #define GET_CPU_VENDOR		3
+#define PLAY_TEST 			4
 
 #define STDIN	0
 #define STDOUT	1
@@ -24,6 +26,7 @@
 #define GET_TIME_COMMAND	"time"
 #define SET_SCREENSAVER_COMMAND	"ss"
 #define GET_CPU_VENDOR_COMMAND	"cpuid"
+#define PLAY_TEST_COMMAND "playtest"
 
 typedef struct date {
 	uint8_t year;

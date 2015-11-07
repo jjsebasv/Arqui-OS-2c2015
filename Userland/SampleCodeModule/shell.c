@@ -33,6 +33,11 @@ static void setScreensaver(int seconds);
 
 static void getCpuVendor();
 
+/*
+ * Plays a sound test
+ */
+static void playTest();
+
 void startShell()
 {
 	char c;
@@ -102,6 +107,8 @@ void parseCommand(const char * line)
 			printf("Invalid argument\n");
 	} else if (strcmp(command, GET_CPU_VENDOR_COMMAND) == 0) {
 		getCpuVendor();
+	} else if (strcmp(command, PLAY_TEST_COMMAND) == 0) {
+		playTest();
 	} else {
 		printf("Command not found.\n");
 	}
@@ -130,8 +137,9 @@ static void help()
 	printf("1 - SET TIME\n");
 	printf("2 - SET SCREENSAVER TIME\n");
 	printf("3 - GET CPU VENDOR\n");
+	printf("4 - TEST SOUND\n");
 
-	if (scanf("%d", &opt) == 0 || opt > 3) {
+	if (scanf("%d", &opt) == 0 || opt > 4) {
 		printf("Invalid option\n");
 		return;
 	}
@@ -157,6 +165,11 @@ static void help()
 			printf("GET CPU VENDOR:\n");
 			printf("Command: cpuid\n");
 			printf("Display the CPU's manufacturer ID string\n");
+			break;
+		case PLAY_TEST:
+			printf("PLAY TEST\n");
+			printf("Command: playtest\n");
+			printf("Plays a default tune\n");
 			break;
 		default:
 			printf("Invalid command.\n");
@@ -229,4 +242,16 @@ static void getCpuVendor()
 	execSysCall(SYS_CPUVENDOR, vendor, 0, 0);
 	vendor[12] = '\0';
 	printf("%s\n", vendor);
+}
+
+static void playTest()
+{
+	int i;
+	for(i=1;i<30;i++) {
+		execSysCall(SYS_SOUND, 500, 440+10*i, 0); // Time - Freq	
+	}
+	for(i=1;i<15;i++) {
+		execSysCall(SYS_SOUND, 500, 590-10*i, 0); // Time - Freq	
+	}
+	printf("playing sound\n");
 }

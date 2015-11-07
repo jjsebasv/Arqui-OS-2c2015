@@ -3,6 +3,6 @@
 
 #include <stdint.h>
 
-void execSysCall( uint64_t code, uint64_t arg1, uint64_t arg2, uint64_t arg3 );
+extern void execSysCall( uint64_t code, uint64_t arg1, uint64_t arg2, uint64_t arg3 );
 
 #endif

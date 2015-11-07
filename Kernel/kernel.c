@@ -16,6 +16,8 @@ extern uint8_t bss;
 extern uint8_t endOfKernelBinary;
 extern uint8_t endOfKernel;
 
+#define TICKS_TO_SECONDS		18
+
 static const uint64_t PageSize = 0x1000;
 
 static void * const sampleCodeModuleAddress = (void*)0x400000;
@@ -127,4 +129,14 @@ void setupIDTentry(int index, uint16_t selector, void (*offset)(), uint8_t acces
 
 	idt[index].zero1 = 0;
 	idt[index].zero2 = 0;
+}
+
+void wait(int ms){
+	_sti();
+	int time = ms * 5500;
+	while ( time > 0 ){
+		time --;
+	}
+	_cli();
+
 }
