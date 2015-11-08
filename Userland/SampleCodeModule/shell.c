@@ -191,6 +191,7 @@ static void help()
 			printf("RINGING KEYBOARD\n");
 			printf("Command: rkeyboard\n");
 			printf("Plays a different sound for each key until you press enter\n");
+			break;
 		case CHOSE_MUSIC:
 			printf("CHOSE MUSIC\n");
 			printf("Command: chosemusic\n");
@@ -284,7 +285,7 @@ static void playTest()
 static void ringingKeyboard()
 {
 	int c, i = 0;
-	printf("Write before this message:\n>");
+	printf("Write after this message:\n>");
 
 	while((c=getChar())!='\n'){
 		if(c == '\b'){
@@ -292,6 +293,7 @@ static void ringingKeyboard()
 				putChar(c);
 				i--;
 			}
+			printf("%d\n", c*100);
 			execSysCall(SYS_SOUND, 500, 440 + (c*100), 0);
 		}else{
 			putChar(c);
@@ -305,7 +307,7 @@ static void ringingKeyboard()
 static void choose_music()
 {
 	int opt = 0;
-	printf("Hi, I'm help, available commands:\n");
+	printf("This are the available songs:\n");
 	printf("Please select your option\n");
 	int s_index;
 	for( s_index = 0; songs[s_index].last != 1; s_index++) {
