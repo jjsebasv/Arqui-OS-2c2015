@@ -155,7 +155,7 @@ static void help()
 	printf("5 - RING KEYBOARD\n");
 	printf("6 - CHOSE MUSIC\n");
 
-	if (scanf("%d", &opt) == 0 || opt > 5) {
+	if (scanf("%d", &opt) == 0 || opt > 6) {
 		printf("Invalid option\n");
 		return;
 	}
