@@ -271,14 +271,22 @@ static void playTest()
 
 static void ringingKeyboard()
 {
-	int c;
+	int c, i = 0;
 	printf("Write before this message:\n");
 
 	while((c=getChar())!='\n'){
-		putChar(c);
-		execSysCall(SYS_SOUND, 500, 440 + (asc*100), 0);
+		if(c == '\b'){
+			if( i > 0){			
+				putChar(c);
+				i--;
+			}
+			execSysCall(SYS_SOUND, 500, 440 + (c*100), 0);
+		}else{
+			putChar(c);
+			execSysCall(SYS_SOUND, 500, 440 + (c*100), 0);
+			i++;
+		}
 	}
-
 	putChar('\n');
 }
 	
