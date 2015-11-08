@@ -276,7 +276,7 @@ static void ringingKeyboard()
 
 	while((c=getChar())!='\n'){
 		putChar(c);
-		execSysCall(SYS_SOUND, 500, 440 + (c*100), 0);
+		execSysCall(SYS_SOUND, 500, 440 + (asc*100), 0);
 	}
 
 	putChar('\n');
