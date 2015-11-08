@@ -153,9 +153,9 @@ static void help()
 	printf("3 - GET CPU VENDOR\n");
 	printf("4 - TEST SOUND\n");
 	printf("5 - RING KEYBOARD\n");
-	printf("6 - CHOSE MUSIC\n");
+	printf("6 - CHOOSE MUSIC\n");
 
-	if (scanf("%d", &opt) == 0 || opt > 5) {
+	if (scanf("%d", &opt) == 0 || opt > 6) {
 		printf("Invalid option\n");
 		return;
 	}
@@ -195,7 +195,7 @@ static void help()
 		case CHOSE_MUSIC:
 			printf("CHOSE MUSIC\n");
 			printf("Command: chosemusic\n");
-			printf("Chose one of our musics and play\n");
+			printf("Choose one of our musics and play\n");
 			break;
 		default:
 			printf("Invalid command.\n");
