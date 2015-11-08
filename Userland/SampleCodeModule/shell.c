@@ -272,7 +272,7 @@ static void playTest()
 static void ringingKeyboard()
 {
 	int c, i = 0;
-	printf("Write before this message:\n");
+	printf("Write before this message:\n>");
 
 	while((c=getChar())!='\n'){
 		if(c == '\b'){
