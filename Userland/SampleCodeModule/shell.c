@@ -193,8 +193,8 @@ static void help()
 			printf("Plays a different sound for each key until you press enter\n");
 			break;
 		case CHOSE_MUSIC:
-			printf("CHOSE MUSIC\n");
-			printf("Command: chosemusic\n");
+			printf("CHOOSE MUSIC\n");
+			printf("Command: choosemusic\n");
 			printf("Choose one of our musics and play\n");
 			break;
 		default:
@@ -217,7 +217,6 @@ static void setTime()
 		}
 	} while ( year <= 0 || year > 99 || month <= 0 || day <= 0 || day > 31 || month > 12 || hour < 0 || hour > 23 || minute < 0 || minute > 59 || second < 0 || second > 59);
 	
-	printf("day: %d\n", day);
 	current_date.hour = hour;
 	current_date.minute = minute;
 	current_date.second = second;
@@ -236,8 +235,8 @@ void printStruct ( date * current_date ){
 	printf("Seconds: %d\n", current_date->second);
 	printf("Minutes: %d\n", current_date->minute);
 	printf("Hours: %d\n", current_date->hour);
-	printf("Day: \n", current_date->day);
-	printf("Month: \n", current_date->month);
+	printf("Day: %d\n", current_date->day);
+	printf("Month: %d\n", current_date->month);
 	printf("Year: %d\n", current_date->year);
 }
 

@@ -30,7 +30,7 @@
 #define GET_CPU_VENDOR_COMMAND	"cpuid"
 #define PLAY_TEST_COMMAND "playtest"
 #define KEYBOARD_SOUND_COMMAND "rkeyboard"
-#define CHOSE_MUSIC_COMMAND "chosemusic"
+#define CHOSE_MUSIC_COMMAND "choosemusic"
 
 #define MUSIC_ZERO 0
 #define MUSIC_ONE 1

@@ -14,10 +14,11 @@
 #define COMMAND_LINE_SIZE	77
 #define GET_DATE			0
 #define SET_DATE			1
-#define SET_SCREENSAVER			2
-#define GET_CPU_VENDOR			3
+#define SET_SCREENSAVER		2
+#define GET_CPU_VENDOR		3
 #define PLAY_TEST 			4
-#define RINGING_KEYBOARD		5
+#define RINGING_KEYBOARD	5
+#define CHOSE_MUSIC 		6
 
 #define STDIN	0
 #define STDOUT	1
@@ -29,8 +30,13 @@
 #define GET_CPU_VENDOR_COMMAND	"cpuid"
 #define PLAY_TEST_COMMAND "playtest"
 #define KEYBOARD_SOUND_COMMAND "rkeyboard"
+#define CHOSE_MUSIC_COMMAND "choosemusic"
 
-#define ASCII_DELETE	127
+#define MUSIC_ZERO 0
+#define MUSIC_ONE 1
+#define MUSIC_TWO 2
+#define MUSIC_THREE 3
+#define MUSIC_FOUR 4
 
 typedef struct date {
 	uint8_t year;

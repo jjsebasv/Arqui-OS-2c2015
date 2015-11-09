@@ -153,7 +153,7 @@ static void help()
 	printf("3 - GET CPU VENDOR\n");
 	printf("4 - TEST SOUND\n");
 	printf("5 - RING KEYBOARD\n");
-	printf("6 - CHOSE MUSIC\n");
+	printf("6 - CHOOSE MUSIC\n");
 
 	if (scanf("%d", &opt) == 0 || opt > 6) {
 		printf("Invalid option\n");
@@ -193,9 +193,9 @@ static void help()
 			printf("Plays a different sound for each key until you press enter\n");
 			break;
 		case CHOSE_MUSIC:
-			printf("CHOSE MUSIC\n");
+			printf("CHOOSE MUSIC\n");
 			printf("Command: chosemusic\n");
-			printf("Chose one of our musics and play\n");
+			printf("Choose one of our musics and play\n");
 			break;
 		default:
 			printf("Invalid command.\n");
@@ -212,12 +212,11 @@ static void setTime()
 	printf("Enter date in this format: YY MM DD HH MM SS\n");
 	do {
 		scanf("%d %d %d %d %d %d", &year, &month, &day, &hour, &minute, &second);
-		if (year <= 0  || year > 99 || month <= 0 || day <= 0 || day > 31 || month > 12 || hour < 0 || hour > 23 || minute < 0 || minute > 50 || second < 0 || second > 59){
+		if (year <= 0  || year > 99 || month <= 0 || day <= 0 || day > 31 || month > 12 || hour < 0 || hour > 23 || minute < 0 || minute > 59 || second < 0 || second > 59){
 			printf("Invalid Format\n");
 		}
-	} while ( year <= 0 || year > 99 || month <= 0 || day <= 0 || day > 31 || month > 12 || hour < 0 || hour > 23 || minute < 0 || minute > 50 || second < 0 || second > 59);
+	} while ( year <= 0 || year > 99 || month <= 0 || day <= 0 || day > 31 || month > 12 || hour < 0 || hour > 23 || minute < 0 || minute > 59 || second < 0 || second > 59);
 	
-	printf("day: %d\n", day);
 	current_date.hour = hour;
 	current_date.minute = minute;
 	current_date.second = second;
@@ -236,8 +235,8 @@ void printStruct ( date * current_date ){
 	printf("Seconds: %d\n", current_date->second);
 	printf("Minutes: %d\n", current_date->minute);
 	printf("Hours: %d\n", current_date->hour);
-	printf("Day: \n", current_date->day);
-	printf("Month: \n", current_date->month);
+	printf("Day: %d\n", current_date->day);
+	printf("Month: %d\n", current_date->month);
 	printf("Year: %d\n", current_date->year);
 }
 
@@ -279,7 +278,6 @@ static void playTest()
 	for(i=1;i<15;i++) {
 		execSysCall(SYS_SOUND, 500, 590-10*i, 0); // Time - Freq	
 	}
-	printf("playing sound\n");
 }
 
 static void ringingKeyboard()
@@ -293,7 +291,6 @@ static void ringingKeyboard()
 				putChar(c);
 				i--;
 			}
-			printf("%d\n", c*100);
 			execSysCall(SYS_SOUND, 500, 440 + (c*100), 0);
 		}else{
 			putChar(c);
