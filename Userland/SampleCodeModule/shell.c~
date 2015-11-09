@@ -194,7 +194,7 @@ static void help()
 			break;
 		case CHOSE_MUSIC:
 			printf("CHOOSE MUSIC\n");
-			printf("Command: chosemusic\n");
+			printf("Command: choosemusic\n");
 			printf("Choose one of our musics and play\n");
 			break;
 		default:
