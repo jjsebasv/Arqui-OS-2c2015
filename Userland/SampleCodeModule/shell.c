@@ -2,6 +2,7 @@
 #include "define.h"
 #include "lib.h"
 #include "shell.h"
+#include "../../Sounds/soundsDataBase.c"
 
 char shellBuffer[COMMAND_LINE_SIZE] = {0};
 int bufferIndex = 0;
@@ -42,6 +43,10 @@ static void playTest();
  * Plays a different sound for each key
  */
 static void ringingKeyboard();
+
+static void choose_music();
+
+static void read_music(int *score);
 
 void startShell()
 {
@@ -114,9 +119,11 @@ void parseCommand(const char * line)
 		getCpuVendor();
 	} else if (strcmp(command, PLAY_TEST_COMMAND) == 0) {
 		playTest();
-	} else if (strcmp(command, KEYBOARD_SOUND_COMMAND) == 0){
+	} else if (strcmp(command, KEYBOARD_SOUND_COMMAND) == 0) {
 		ringingKeyboard();
-	}else {
+	} else if (strcmp(command, CHOSE_MUSIC_COMMAND) == 0) {
+		choose_music();
+	} else {
 		printf("Command not found.\n");
 	}
 
@@ -146,8 +153,9 @@ static void help()
 	printf("3 - GET CPU VENDOR\n");
 	printf("4 - TEST SOUND\n");
 	printf("5 - RING KEYBOARD\n");
+	printf("6 - CHOOSE MUSIC\n");
 
-	if (scanf("%d", &opt) == 0 || opt > 5) {
+	if (scanf("%d", &opt) == 0 || opt > 6) {
 		printf("Invalid option\n");
 		return;
 	}
@@ -183,6 +191,11 @@ static void help()
 			printf("RINGING KEYBOARD\n");
 			printf("Command: rkeyboard\n");
 			printf("Plays a different sound for each key until you press enter\n");
+			break;
+		case CHOSE_MUSIC:
+			printf("CHOSE MUSIC\n");
+			printf("Command: chosemusic\n");
+			printf("Choose one of our musics and play\n");
 			break;
 		default:
 			printf("Invalid command.\n");
@@ -272,7 +285,7 @@ static void playTest()
 static void ringingKeyboard()
 {
 	int c, i = 0;
-	printf("Write before this message:\n>");
+	printf("Write after this message:\n>");
 
 	while((c=getChar())!='\n'){
 		if(c == '\b'){
@@ -280,6 +293,7 @@ static void ringingKeyboard()
 				putChar(c);
 				i--;
 			}
+			printf("%d\n", c*100);
 			execSysCall(SYS_SOUND, 500, 440 + (c*100), 0);
 		}else{
 			putChar(c);
@@ -289,4 +303,29 @@ static void ringingKeyboard()
 	}
 	putChar('\n');
 }
-	
+
+static void choose_music()
+{
+	int opt = 0;
+	printf("This are the available songs:\n");
+	printf("Please select your option\n");
+	int s_index;
+	for( s_index = 0; songs[s_index].last != 1; s_index++) {
+		printf("%d - %s\n", s_index, songs[s_index].name );
+	}
+	if (scanf("%d", &opt) == 0 || opt > s_index-1) {
+		printf("Not such music file\n");
+		return;
+	}
+	else {
+		printf("%s\n", songs[opt].name );
+		read_music(songs[opt].score);
+	}
+}
+
+void read_music(int *score) {
+	int i;
+	for (i = 0; score[i] != -1; ) {
+		execSysCall(SYS_SOUND, score[i++], score[i++], 0);
+	}
+}
