@@ -212,10 +212,10 @@ static void setTime()
 	printf("Enter date in this format: YY MM DD HH MM SS\n");
 	do {
 		scanf("%d %d %d %d %d %d", &year, &month, &day, &hour, &minute, &second);
-		if (year <= 0  || year > 99 || month <= 0 || day <= 0 || day > 31 || month > 12 || hour < 0 || hour > 23 || minute < 0 || minute > 50 || second < 0 || second > 59){
+		if (year <= 0  || year > 99 || month <= 0 || day <= 0 || day > 31 || month > 12 || hour < 0 || hour > 23 || minute < 0 || minute > 59 || second < 0 || second > 59){
 			printf("Invalid Format\n");
 		}
-	} while ( year <= 0 || year > 99 || month <= 0 || day <= 0 || day > 31 || month > 12 || hour < 0 || hour > 23 || minute < 0 || minute > 50 || second < 0 || second > 59);
+	} while ( year <= 0 || year > 99 || month <= 0 || day <= 0 || day > 31 || month > 12 || hour < 0 || hour > 23 || minute < 0 || minute > 59 || second < 0 || second > 59);
 	
 	printf("day: %d\n", day);
 	current_date.hour = hour;
@@ -279,7 +279,6 @@ static void playTest()
 	for(i=1;i<15;i++) {
 		execSysCall(SYS_SOUND, 500, 590-10*i, 0); // Time - Freq	
 	}
-	printf("playing sound\n");
 }
 
 static void ringingKeyboard()
@@ -293,7 +292,6 @@ static void ringingKeyboard()
 				putChar(c);
 				i--;
 			}
-			printf("%d\n", c*100);
 			execSysCall(SYS_SOUND, 500, 440 + (c*100), 0);
 		}else{
 			putChar(c);
