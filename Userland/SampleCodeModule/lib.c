@@ -14,16 +14,16 @@
 static void vprintf(char* s, va_list vl);
 static int vsscanf(const char * s, const char * f, va_list vl);
 
-void putChar(char c) 
+void putChar(char c)
 {
-	execSysCall(SYS_WRITE, STDOUT, &c, 1);
+	execSysCall(SYS_WRITE, STDOUT, (uint64_t)&c, 1);
 }
 
 char getChar()
 {
 	char c = -1;
 	while(c == -1)
-		execSysCall(SYS_READ, STDIN, &c, 1);
+		execSysCall(SYS_READ, STDIN, (uint64_t)&c, 1);
 
 	return c;
 }
@@ -69,7 +69,7 @@ static void vprintf(char* s, va_list vl) {
 				sAux = va_arg(vl, char *);
 				putString(sAux);
 				i++;
-   			} else if (nextChar == 'x') { 
+   			} else if (nextChar == 'x') {
    				iAux = va_arg(vl, int);
    				char hex[int_length(i)];
    				itos(iAux, 16, hex);
@@ -118,7 +118,7 @@ int scanf(const char * format, ...)
 	return count;
 }
 
-int sscanf(const char * source, const char * format, ...) 
+int sscanf(const char * source, const char * format, ...)
 {
 	int count;
 	va_list vl;
@@ -165,7 +165,7 @@ static int vsscanf(const char * s, const char * f, va_list vl)
 				while (*s == ' ')
 					s++;
 
-				// Check if we have a number 
+				// Check if we have a number
 				if (cindex(*s, "0123456789") >= 0) {
 					i = 0;
 					// Being careful with intBuffer size; it's 25 chars long,
@@ -211,7 +211,7 @@ static int vsscanf(const char * s, const char * f, va_list vl)
 	return count;
 }
 
-void concat(char * first, char * second, char * to) 
+void concat(char * first, char * second, char * to)
 {
 	int i = 0;
 	int j = 0;

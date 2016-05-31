@@ -31,8 +31,44 @@ static struct argp_option options[] = {
 static struct argp argp = { options, parse_opt, args_doc, doc };
 
 
+int buildImage(array_t fileArray, char *output_file) {
+
+  FILE *target;
+
+  if((target = fopen(output_file, "w")) == NULL) {
+    printf("Can't create target file\n");
+    return FALSE;
+  }
+
+  //First, write the kernel
+  FILE *source = fopen(fileArray.array[0], "r");
+  write_file(target, source);
+
+  //Write how many extra binaries we got.
+  int extraBinaries = fileArray.length - 1;
+  fwrite(&extraBinaries, sizeof(extraBinaries), 1, target);
+  fclose(source);
+
+  int i;
+  for (i = 1 ; i < fileArray.length ; i++) {
+    FILE *source = fopen(fileArray.array[i], "r");
+
+    //Write the file size;
+    write_size(target, fileArray.array[i]);
+
+    //Write the binary
+    write_file(target, source);
+
+    fclose(source);
+
+  }
+  fclose(target);
+  return TRUE;
+}
+
+
 int main(int argc, char *argv[]) {
-	
+
 	struct arguments arguments;
 
 	arguments.output_file = OUTPUT_FILE;
@@ -44,46 +80,10 @@ int main(int argc, char *argv[]) {
 
 	if(!checkFiles(fileArray)) {
 		return 1;
-	}	
+	}
 
 	return !buildImage(fileArray, arguments.output_file);
 }
-
-int buildImage(array_t fileArray, char *output_file) {
-
-	FILE *target;
-
-	if((target = fopen(output_file, "w")) == NULL) {
-		printf("Can't create target file\n");
-		return FALSE;
-	}
-
-	//First, write the kernel
-	FILE *source = fopen(fileArray.array[0], "r");
-	write_file(target, source);
-
-	//Write how many extra binaries we got.
-	int extraBinaries = fileArray.length - 1;
-	fwrite(&extraBinaries, sizeof(extraBinaries), 1, target);	
-	fclose(source);
-
-	int i;
-	for (i = 1 ; i < fileArray.length ; i++) {
-		FILE *source = fopen(fileArray.array[i], "r");
-		
-		//Write the file size;
-		write_size(target, fileArray.array[i]);
-
-		//Write the binary
-		write_file(target, source);
-
-		fclose(source);
-
-	} 
-	fclose(target);
-	return TRUE;
-}
-
 
 int checkFiles(array_t fileArray) {
 

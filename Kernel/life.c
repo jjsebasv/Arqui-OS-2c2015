@@ -16,7 +16,7 @@ void setupLife()
 	int y = VIDEO_HEIGHT / 2, x = VIDEO_WIDTH / 2 - 5;
 	for (i = 0; i <= 10; i++)
 		cells[y][x + i] = 1;
-	
+
 }
 
 void nextGen()
@@ -28,10 +28,11 @@ void nextGen()
 			neighbors = countNeighbors(x, y);
 
 			nextCells[y][x] = 0;
-			if (cells[y][x] == 0 && neighbors == 3)
-				nextCells[y][x] == 1;				
-			else if (neighbors == 2 || neighbors == 3)
+			if (cells[y][x] == 0 && neighbors == 3) {
+				nextCells[y][x] == 1;
+			}	else if (neighbors == 2 || neighbors == 3) {
 				nextCells[y][x] = 1;
+			}
 		}
 	}
 

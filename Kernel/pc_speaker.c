@@ -6,9 +6,9 @@
 int set_speaker_freq(int freq){
 
 	int div = 1193182 / freq; /* 1193182 is the PIT frequency. Div is the reset counter */
-	
 
-	return 1;
+
+	return div;
 
 }
 
@@ -32,5 +32,3 @@ void stop_speaker() {
 	tmp = tmp | 252;
 	_outb(tmp, 0x61);
 }
-
-

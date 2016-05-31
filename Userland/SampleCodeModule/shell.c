@@ -1,6 +1,7 @@
 #include <stdint.h>
 #include "define.h"
 #include "lib.h"
+#include "libasm.h"
 #include "shell.h"
 #include "../../Sounds/soundsDataBase.c"
 
@@ -202,35 +203,6 @@ static void help()
 	}
 }
 
-static void setTime()
-{
-	int hour = 0, minute = 0, second = 0;
-	int year = 1, day = 0, month = 0;
-	date current_date;
-	int error = 0;
-
-	printf("Enter date in this format: YY MM DD HH MM SS\n");
-	do {
-		scanf("%d %d %d %d %d %d", &year, &month, &day, &hour, &minute, &second);
-		if (year <= 0  || year > 99 || month <= 0 || day <= 0 || day > 31 || month > 12 || hour < 0 || hour > 23 || minute < 0 || minute > 59 || second < 0 || second > 59){
-			printf("Invalid Format\n");
-		}
-	} while ( year <= 0 || year > 99 || month <= 0 || day <= 0 || day > 31 || month > 12 || hour < 0 || hour > 23 || minute < 0 || minute > 59 || second < 0 || second > 59);
-	
-	current_date.hour = hour;
-	current_date.minute = minute;
-	current_date.second = second;
-	current_date.day = day;
-	current_date.month = month;
-	current_date.year = year;
-
-	printStruct(&current_date);
-
-	execSysCall(SYS_STIME, &current_date, 1, 1);
-	printf("Complete.\n");
-	getTime();
-}
-
 void printStruct ( date * current_date ){
 	printf("Seconds: %d\n", current_date->second);
 	printf("Minutes: %d\n", current_date->minute);
@@ -240,10 +212,38 @@ void printStruct ( date * current_date ){
 	printf("Year: %d\n", current_date->year);
 }
 
+static void setTime()
+{
+	int hour = 0, minute = 0, second = 0;
+	int year = 1, day = 0, month = 0;
+	date current_date;
+
+	printf("Enter date in this format: YY MM DD HH MM SS\n");
+	do {
+		scanf("%d %d %d %d %d %d", &year, &month, &day, &hour, &minute, &second);
+		if (year <= 0  || year > 99 || month <= 0 || day <= 0 || day > 31 || month > 12 || hour < 0 || hour > 23 || minute < 0 || minute > 59 || second < 0 || second > 59){
+			printf("Invalid Format\n");
+		}
+	} while ( year <= 0 || year > 99 || month <= 0 || day <= 0 || day > 31 || month > 12 || hour < 0 || hour > 23 || minute < 0 || minute > 59 || second < 0 || second > 59);
+
+	current_date.hour = hour;
+	current_date.minute = minute;
+	current_date.second = second;
+	current_date.day = day;
+	current_date.month = month;
+	current_date.year = year;
+
+	printStruct(&current_date);
+
+	execSysCall(SYS_STIME, (uint64_t)&current_date, 1, 1);
+	printf("Complete.\n");
+	getTime();
+}
+
 static void getTime()
 {
 	date current_date;
-	execSysCall(SYS_TIME, &current_date, 1, 1);
+	execSysCall(SYS_TIME, (uint64_t)&current_date, 1, 1);
 	printf(
 		"Current date and time: %d/%d/%d %d:%d:%d\n",
 		current_date.year,
@@ -261,10 +261,10 @@ static void setScreensaver(int seconds)
 	printf("Screensaver timeout set to %d seconds\n", seconds);
 }
 
-static void getCpuVendor() 
+static void getCpuVendor()
 {
 	char vendor[13];
-	execSysCall(SYS_CPUVENDOR, vendor, 0, 0);
+	execSysCall(SYS_CPUVENDOR, (uint64_t)vendor, 0, 0);
 	vendor[12] = '\0';
 	printf("%s\n", vendor);
 }
@@ -274,10 +274,10 @@ static void playTest()
 	int i;
 	printf("Playing sound\n");
 	for(i=1;i<30;i++) {
-		execSysCall(SYS_SOUND, 500, 440+10*i, 0); // Time - Freq	
+		execSysCall(SYS_SOUND, 500, 440+10*i, 0); // Time - Freq
 	}
 	for(i=1;i<15;i++) {
-		execSysCall(SYS_SOUND, 500, 590-10*i, 0); // Time - Freq	
+		execSysCall(SYS_SOUND, 500, 590-10*i, 0); // Time - Freq
 	}
 }
 
@@ -288,7 +288,7 @@ static void ringingKeyboard()
 
 	while((c=getChar())!='\n'){
 		if(c == '\b'){
-			if( i > 0){			
+			if( i > 0){
 				putChar(c);
 				i--;
 			}
@@ -322,8 +322,8 @@ static void choose_music()
 }
 
 void read_music(int *score) {
-	int i;
-	for (i = 0; score[i] != -1; ) {
-		execSysCall(SYS_SOUND, score[i++], score[i++], 0);
+	int i = 0;
+	for (i = 0; score[i] != -1; i++) {
+		execSysCall(SYS_SOUND, score[i], score[i], 0);
 	}
 }

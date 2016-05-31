@@ -6,7 +6,7 @@
 // Hola
 
 char * v = (char*)0xB8000 + 79 * 2;
- 
+
 extern char bss;
 extern char endOfBinary;
 
